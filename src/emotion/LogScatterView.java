@@ -93,7 +93,7 @@ public class LogScatterView extends AbstractAnalysis{
                 http://doc.jzy3d.org/javadoc/1.0.0/jzy3d-api/index.html
                 */
 	        ConcurrentScatterMultiColorList scatter = new ConcurrentScatterMultiColorList(points, new ColorMapper(new ColorMapRainbow(), 0.1, 1.1, new Color(1, 1, 1, .5f)));
-	        chart = AWTChartComponentFactory.chart(Quality.Advanced, "awt");
+	        chart = AWTChartComponentFactory.chart(Quality.Fastest, "awt");
                 //chart.
                 
 	        chart.getView();

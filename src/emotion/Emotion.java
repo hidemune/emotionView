@@ -70,8 +70,8 @@ public class Emotion {
                     Keyword key = new Keyword();
                     key.word = arr[0];
                     key.x = Double.valueOf(arr[1]);
-                    key.y = Double.valueOf(arr[2]);
-                    key.z = Double.valueOf(arr[3]);
+                    key.z = Double.valueOf(arr[2]);
+                    key.y = Double.valueOf(arr[3]);
                     key.bunbo = Double.valueOf(arr[4]);
                     //System.out.println(key.word + ","+ key.x + ","+ key.y + ","+ key.z );
                     keys.add(key);
@@ -192,14 +192,14 @@ create table emotionwords (
             //mecab
             //BufferedWriter bw = null;
             FileWriter fw = null;
-            fw = new FileWriter("/tmp/emotion_wk.txt");
+            fw = new FileWriter("emotion_wk.txt");
             //bw = new BufferedWriter(fw);
             Document doc = frm.getHtml();
             HteWriter hte = new HteWriter(fw, doc, 0, 999999999);
             hte.write();
             fw.close();
             
-            ProcessBuilder pb = new ProcessBuilder("mecab", "/tmp/emotion_wk.txt");
+            ProcessBuilder pb = new ProcessBuilder("mecab", "emotion_wk.txt");
             Process process = pb.start();
             InputStream is = process.getInputStream();	//標準出力
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
@@ -282,7 +282,7 @@ create table emotionwords (
             FileWriter filewriter = new FileWriter(file);
             String str ;
             for (int i = 0; i < keys.size(); i++) {
-                str = keys.get(i).word + "\t" + keys.get(i).x + "\t" + keys.get(i).y + "\t" + keys.get(i).z + "\t" + keys.get(i).bunbo + "\t\n" ;
+                str = keys.get(i).word + "\t" + keys.get(i).x + "\t" + keys.get(i).z + "\t" + keys.get(i).y + "\t" + keys.get(i).bunbo + "\t\n" ;
                 filewriter.write(str);
             }
             filewriter.close();
@@ -374,7 +374,7 @@ class EmotionAnchor {
     public double x;
     public double y;
     public double z;
-    EmotionAnchor(String Word,double X,double Y,double Z) {
+    EmotionAnchor(String Word,double X,double Z,double Y) {
         word = Word;
         x = X;
         y = Y;

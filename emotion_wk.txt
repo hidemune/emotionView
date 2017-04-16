@@ -1,0 +1,58 @@
+<html>
+  <head>
+    
+  </head>
+  <body>
+    試験 - Wikipedia<!--(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"試験","wgTitle":"試験","wgCurRevisionId":62905283,"wgRevisionId":62905283,"wgArticleId":26322,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["すべての曖昧さ回避","曖昧さ回避","試験","工学"],"wgBreakFrames":false,"wgPageContentLanguage":"ja","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"ja","wgMonthNames":["","1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"wgMonthNamesShort":["","1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"wgRelevantPageName":"試験","wgRelevantArticleId":26322,"wgRequestId":"WPFMHwpAADoAAPDAErIAAAAD","wgIsProbablyEditable":true,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"preview":false,"publish":false},"wgBetaFeaturesFeatures":[],"wgMediaViewerOnClick":true,"wgMediaViewerEnabledByDefault":true,"wgPopupsShouldSendModuleToUser":false,"wgPopupsConflictsWithNavPopupGadget":false,"wgVisualEditor":{"pageLanguageCode":"ja","pageLanguageDir":"ltr","usePageImages":true,"usePageDescriptions":true},"wgPreferredVariant":"ja","wgMFDisplayWikibaseDescriptions":{"search":true,"nearby":true,"watchlist":true,"tagline":true},"wgRelatedArticles":null,"wgRelatedArticlesUseCirrusSearch":true,"wgRelatedArticlesOnlyUseCirrusSearch":false,"wgULSCurrentAutonym":"日本語","wgNoticeProject":"wikipedia","wgCentralNoticeCookiesToDelete":[],"wgCentralNoticeCategoriesUsingLegacy":["Fundraising","fundraising"],"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","wgWikibaseItemId":"Q1355298","wgCentralAuthMobileDomain":false,"wgVisualEditorToolbarScrollOffset":0,"wgEditSubmitButtonLabelPublish":true});mw.loader.state({"ext.globalCssJs.user.styles":"ready","ext.globalCssJs.site.styles":"ready","site.styles":"ready","noscript":"ready","user.styles":"ready","user":"ready","user.options":"loading","user.tokens":"loading","wikibase.client.init":"ready","ext.visualEditor.desktopArticleTarget.noscript":"ready","ext.uls.interlanguage":"ready","ext.wikimediaBadges":"ready","mediawiki.legacy.shared":"ready","mediawiki.legacy.commonPrint":"ready","mediawiki.sectionAnchor":"ready","mediawiki.skinning.interface":"ready","skins.vector.styles":"ready","ext.globalCssJs.user":"ready","ext.globalCssJs.site":"ready"});mw.loader.implement("user.options@0bc2kh0",function($,jQuery,require,module){mw.user.options.set({"variant":"ja"});});mw.loader.implement("user.tokens@1dqfd7l",function ( $, jQuery, require, module ) {
+mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});/*@nomin*/;
+
+});mw.loader.load(["mediawiki.action.view.postEdit","site","mediawiki.page.startup","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.legacy.wikibits","mediawiki.searchSuggest","ext.gadget.ReferenceTooltips","ext.gadget.WikiMiniAtlas","ext.gadget.switcher","ext.centralauth.centralautologin","mmv.head","mmv.bootstrap.autostart","ext.visualEditor.desktopArticleTarget.init","ext.visualEditor.targetLoader","ext.eventLogging.subscriber","ext.wikimediaEvents","ext.navigationTiming","ext.uls.eventlogger","ext.uls.init","ext.uls.compactlinks","ext.uls.interface","ext.centralNotice.geoIP","ext.centralNotice.startUp","skins.vector.js"]);});-->
+     試験 出典: フリー百科事典『ウィキペディア（Wikipedia）』 移動先: 案内、 検索 ウィクショナリーに試験の項目があります。 
+    試験（しけん）とは被験者または試料の能力や性質を測定するために行う行為のこと。 入学試験 学力検査 定期考査 実験 試運転 関連項目[編集] 
+    プロジェクト 資格 ポータル 資格 テスト 試験方法（英語版） 検定 監査 面接・筆記 日本の検定試験一覧 「試験」で始まるページの一覧 
+    関連カテゴリ: Category:試験 
+    このページは曖昧さ回避のためのページです。一つの語句が複数の意味・職能を有する場合の水先案内のために、異なる用法を一覧にしてあります。お探しの用語に一番近い記事を選んで下さい。このページへリンクしているページを見つけたら、リンクを適切な項目に張り替えて下さい。<!-- 
+NewPP limit report
+Parsed by mw1189
+Cached time: 20170414011346
+Cache expiry: 2592000
+Dynamic content: false
+CPU time usage: 0.044 seconds
+Real time usage: 0.064 seconds
+Preprocessor visited node count: 380/1000000
+Preprocessor generated node count: 0/1500000
+Post‐expand include size: 7214/2097152 bytes
+Template argument size: 1452/2097152 bytes
+Highest expansion depth: 11/40
+Expensive parser function count: 1/500
+Lua time usage: 0.004/10.000 seconds
+Lua memory usage: 598 KB/50 MB
+-->
+    <!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%   43.988      1 -total
+ 54.70%   24.062      3 Template:Side_box
+ 42.68%   18.775      1 Template:Wiktionary
+ 39.59%   17.415      1 Template:Sister
+ 21.11%    9.284      1 Template:ウィキプロジェクトリンク
+ 15.22%    6.694      1 Template:Image2
+ 13.96%    6.142      1 Template:Aimai
+ 10.71%    4.709      1 Template:Dmbox
+  8.22%    3.618      1 Template:仮リンク
+  5.25%    2.309      1 Template:ウィキポータルリンク
+-->
+    <!-- Saved in parser cache with key jawiki:pcache:idhash:26322-0!*!0!*!*!4!* and timestamp 20170414011346 and revision id 62905283
+ -->
+     「https://ja.wikipedia.org/w/index.php?title=試験&amp;oldid=62905283」から取得 カテゴリ: 
+    曖昧さ回避 試験 工学 隠しカテゴリ: すべての曖昧さ回避 案内メニュー 個人用ツール ログインしていません トーク 投稿記録 アカウント作成 
+    ログイン 名前空間 ページ ノート 変種 表示 閲覧 編集 履歴表示 その他 検索 案内 メインページ コミュニティ・ポータル 最近の出来事 
+    新しいページ 最近の更新 おまかせ表示 練習用ページ アップロード (ウィキメディア・コモンズ) ヘルプ ヘルプ 井戸端 お知らせ バグの報告 寄付 
+    ウィキペディアに関するお問い合わせ 印刷/書き出し ブックの新規作成 PDF 形式でダウンロード 印刷用バージョン 他のプロジェクト ウィキブックス 
+    ツール リンク元 関連ページの更新状況 ファイルをアップロード 特別ページ この版への固定リンク ページ情報 ウィキデータ項目 このページを引用 
+    他言語版 Azərbaycanca Български Català Deutsch Esperanto Eesti हिन्दी Кыргызча 
+    Русский Soomaaliga Svenska తెలుగు リンクを編集 最終更新 2017年2月5日 (日) 05:21 
+    （日時は個人設定で未設定ならばUTC）。 テキストはクリエイティブ・コモンズ 
+    表示-継承ライセンスの下で利用可能です。追加の条件が適用される場合があります。詳細は利用規約を参照してください。 プライバシー・ポリシー 
+    ウィキペディアについて 免責事項 開発者 Cookieに関する声明 モバイルビュー
+  </body>
+</html>
