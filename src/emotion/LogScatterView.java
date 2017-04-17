@@ -7,6 +7,7 @@ package emotion;
  */
 
 
+import static emotion.Emotion.anchor;
 import static emotion.Emotion.keys;
 import java.io.BufferedReader;
 import java.io.File;
@@ -21,6 +22,7 @@ import org.jzy3d.chart.factories.AWTChartComponentFactory;
 import org.jzy3d.colors.Color;
 import org.jzy3d.colors.ColorMapper;
 import org.jzy3d.colors.colormaps.ColorMapRainbow;
+import org.jzy3d.maths.Coord2d;
 import org.jzy3d.maths.Coord3d;
 import org.jzy3d.plot3d.primitives.ConcurrentScatterMultiColorList;
 import org.jzy3d.plot3d.primitives.Scatter;
@@ -31,6 +33,9 @@ import org.jzy3d.plot3d.primitives.Scatter;
 //import org.jzy3d.plot3d.primitives.axeTransformablePrimitive.axeTransformers.LogAxeTransformer;
 import org.jzy3d.plot3d.rendering.canvas.Quality;
 import org.jzy3d.plot3d.rendering.view.modes.ViewPositionMode;
+import org.jzy3d.plot3d.text.drawable.DrawableTextBitmap;
+import org.jzy3d.plot3d.text.drawable.DrawableTextTexture;
+import org.jzy3d.plot3d.text.drawable.cells.DrawableTextCell;
 import org.jzy3d.plot3d.transform.space.SpaceTransformer;
 
 
@@ -101,8 +106,10 @@ public class LogScatterView extends AbstractAnalysis{
 	        chart.getScene().add(scatter);
                 
                 chart.getView().setViewPoint(new Coord3d(-0.2f,-0.5f,0.1f),true);
-                //chart.getView().setViewPoint(new Coord3d(-1,-1,-0.1),true);
-                chart.getView().getViewPoint().rotate(90, new Coord3d(0,0,0));
-                //chart.getView().
+                //chart.addLight(new Coord3d(1,1,1));
+                
+                for (int i = 0; i < anchor.size(); i++) {
+                    chart.addDrawable(new DrawableTextBitmap(anchor.get(i).wordEng, new Coord3d(anchor.get(i).x,anchor.get(i).y,anchor.get(i).z), Color.BLUE));
+                }
 	    }
 	}

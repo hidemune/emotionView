@@ -35,23 +35,23 @@ public class Emotion {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        anchor.add(new EmotionAnchor("無関心",0d,0d,0d));
-        anchor.add(new EmotionAnchor("愛",1d,0d,0d));
-        anchor.add(new EmotionAnchor("楽観",1d,1d,0d));
-        anchor.add(new EmotionAnchor("喜び",1d,1d,1d));
-        anchor.add(new EmotionAnchor("関心",1d,1d,-1d));
-        anchor.add(new EmotionAnchor("服従",1d,-1d,0d));
-        anchor.add(new EmotionAnchor("信頼",1d,-1d,1d));
-        anchor.add(new EmotionAnchor("恐怖",1d,-1d,-1d));
-        anchor.add(new EmotionAnchor("自責の念",-1d,0d,0d));
-        anchor.add(new EmotionAnchor("軽蔑",-1d,1d,0d));
-        anchor.add(new EmotionAnchor("憎しみ",-1d,1d,1d));
-        anchor.add(new EmotionAnchor("怒り",-1d,1d,-1d));
-        anchor.add(new EmotionAnchor("失望",-1d,-1d,0d));
-        anchor.add(new EmotionAnchor("悲しみ",-1d,-1d,1d));
-        anchor.add(new EmotionAnchor("驚き",-1d,-1d,-1d));
-        anchor.add(new EmotionAnchor("攻撃的",0d,1d,0d));
-        anchor.add(new EmotionAnchor("畏れ",0d,-1d,0d));
+        anchor.add(new EmotionAnchor("","無関心",0d,0d,0d));
+        anchor.add(new EmotionAnchor("love","愛",1d,0d,0d));
+        anchor.add(new EmotionAnchor("optimism","楽観",1d,1d,0d));
+        anchor.add(new EmotionAnchor("joy","喜び",1d,1d,1d));
+        anchor.add(new EmotionAnchor("anticipation","関心",1d,1d,-1d));
+        anchor.add(new EmotionAnchor("submission","服従",1d,-1d,0d));
+        anchor.add(new EmotionAnchor("trust","信頼",1d,-1d,1d));
+        anchor.add(new EmotionAnchor("fear","恐怖",1d,-1d,-1d));
+        anchor.add(new EmotionAnchor("remorse","自責の念",-1d,0d,0d));
+        anchor.add(new EmotionAnchor("contempt","軽蔑",-1d,1d,0d));
+        anchor.add(new EmotionAnchor("disgust","憎しみ",-1d,1d,1d));
+        anchor.add(new EmotionAnchor("anger","怒り",-1d,1d,-1d));
+        anchor.add(new EmotionAnchor("disapproval","失望",-1d,-1d,0d));
+        anchor.add(new EmotionAnchor("sadness","悲しみ",-1d,-1d,1d));
+        anchor.add(new EmotionAnchor("surprise","驚き",-1d,-1d,-1d));
+        anchor.add(new EmotionAnchor("aggressiveness","攻撃的",0d,1d,0d));
+        anchor.add(new EmotionAnchor("awe","畏れ",0d,-1d,0d));
         
         frm = new emotionJFrame();
         frm.setVisible(true);
@@ -370,11 +370,13 @@ create table emotionwords (
 }
 
 class EmotionAnchor {
+    public String wordEng;
     public String word;
     public double x;
     public double y;
     public double z;
-    EmotionAnchor(String Word,double X,double Z,double Y) {
+    EmotionAnchor(String WordEng, String Word,double X,double Z,double Y) {
+        wordEng = WordEng;
         word = Word;
         x = X;
         y = Y;
