@@ -7,6 +7,9 @@ package emotion;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
 import javax.swing.JEditorPane;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
@@ -28,8 +31,8 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
      */
     public emotionJFrame() {
         initComponents();
-        //url.setText("https://search.yahoo.co.jp/search?ei=UTF-8&p=jEditorPane");
-        url.setText("https://search.yahoo.co.jp/search?ei=SJIS&p=");
+        url.setText("https://search.yahoo.co.jp/search?ei=UTF-8&p=");
+        //url.setText("https://search.yahoo.co.jp/search?ei=SJIS&p=");
         html.addHyperlinkListener(this);
         html.setBackground(Color.white);
         html.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
@@ -92,6 +95,7 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("感情モデル作成");
@@ -158,6 +162,13 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
             }
         });
 
+        jButton6.setText("クリップボードから");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -171,7 +182,9 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
                 .addComponent(jButton4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 453, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 312, Short.MAX_VALUE)
+                .addComponent(jButton6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(emotion, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1))
@@ -188,7 +201,8 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
                     .addComponent(jButton2)
                     .addComponent(jButton3)
                     .addComponent(jButton4)
-                    .addComponent(jButton5))
+                    .addComponent(jButton5)
+                    .addComponent(jButton6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE))
         );
@@ -252,6 +266,19 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
         Help hlp = new Help();
         hlp.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        html.setText("");
+        //クリップボードから貼り付け
+        Toolkit kit = Toolkit.getDefaultToolkit();
+        Clipboard clip = kit.getSystemClipboard();
+
+        try {
+            html.setText((String) clip.getData(DataFlavor.stringFlavor));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -329,6 +356,7 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField url;
     // End of variables declaration//GEN-END:variables

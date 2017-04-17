@@ -30,6 +30,7 @@ import org.jzy3d.plot3d.primitives.Scatter;
 //import org.jzy3d.plot3d.primitives.axeTransformablePrimitive.axeTransformers.AxeTransformerSet;
 //import org.jzy3d.plot3d.primitives.axeTransformablePrimitive.axeTransformers.LogAxeTransformer;
 import org.jzy3d.plot3d.rendering.canvas.Quality;
+import org.jzy3d.plot3d.rendering.view.modes.ViewPositionMode;
 import org.jzy3d.plot3d.transform.space.SpaceTransformer;
 
 
@@ -98,5 +99,10 @@ public class LogScatterView extends AbstractAnalysis{
                 
 	        chart.getView();
 	        chart.getScene().add(scatter);
+                
+                chart.getView().setViewPoint(new Coord3d(-0.2f,-0.5f,0.1f),true);
+                //chart.getView().setViewPoint(new Coord3d(-1,-1,-0.1),true);
+                chart.getView().getViewPoint().rotate(90, new Coord3d(0,0,0));
+                //chart.getView().
 	    }
 	}
