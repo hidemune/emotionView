@@ -198,6 +198,7 @@
         <Property name="text" type="java.lang.String" value="&#x30af;&#x30ea;&#x30c3;&#x30d7;&#x30dc;&#x30fc;&#x30c9;&#x304b;&#x3089;"/>
       </Properties>
       <Events>
+        <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton6MouseReleased"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton6ActionPerformed"/>
       </Events>
     </Component>

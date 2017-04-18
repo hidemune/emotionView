@@ -11,6 +11,7 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
+import javafx.scene.input.MouseButton;
 import javax.swing.JEditorPane;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
@@ -26,7 +27,7 @@ import javax.swing.text.html.StyleSheet;
  * @author user
  */
 public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListener {
-
+    private boolean clipmode = false;
     /**
      * Creates new form emotionJFrame
      */
@@ -173,6 +174,11 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
         });
 
         jButton6.setText("クリップボードから");
+        jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jButton6MouseReleased(evt);
+            }
+        });
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -279,6 +285,7 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
         jButton1.setEnabled(false);
         Emotion.setEmotion(emotion.getSelectedItem().toString(), this);
         jButton1.setEnabled(true);
+        clipmode = false;
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -330,6 +337,7 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         html.setText("");
+        clipmode = true;
         //クリップボードから貼り付け
         Toolkit kit = Toolkit.getDefaultToolkit();
         Clipboard clip = kit.getSystemClipboard();
@@ -357,6 +365,9 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
     }//GEN-LAST:event_jSlider3StateChanged
 
     private void emotionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emotionActionPerformed
+        if (clipmode) {
+            return;
+        }
         EmotionAnchor ancNow = null;
         for (int i = 0; i < anchor.size(); i++) {
             if (anchor.get(i).word.equals(emotion.getSelectedItem())) {
@@ -374,7 +385,36 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         searchKey();
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton6MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseReleased
+        if (evt.getButton() == 3) {
+            clipmode = false;
+        }
+    }//GEN-LAST:event_jButton6MouseReleased
     private void setWord(){
+        //一番近い感情に寄せる
+        boolean bk = clipmode;
+        clipmode = true;
+        double[] dist = new double[30];
+        int idx = 100;
+        double min=99999;
+        for (int i = 0; i < Emotion.anchor.size(); i++) {
+            //距離
+            dist[i] = Math.pow((Emotion.anchor.get(i).x - Emotion.xxx ),2) 
+                    + Math.pow((Emotion.anchor.get(i).y - Emotion.yyy ),2) 
+                    + Math.pow((Emotion.anchor.get(i).z - Emotion.zzz ),2);
+            System.out.println("dist" + dist[i]);
+        }
+        for (int i = 0; i < Emotion.anchor.size(); i++) {
+            if (dist[i] < min) {
+                idx = i;
+                min = dist[i];
+            }
+        }
+        System.out.println("idx" + idx);
+        emotion.setSelectedIndex(idx);
+        clipmode = bk;
+        
         html.setText("");
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < Emotion.keys.size(); i++) {
