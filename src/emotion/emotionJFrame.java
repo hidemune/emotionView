@@ -383,6 +383,7 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
     }//GEN-LAST:event_emotionActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        html.setText("辞書にありません");
         searchKey();
     }//GEN-LAST:event_jTextField1ActionPerformed
 
