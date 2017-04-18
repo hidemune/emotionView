@@ -56,7 +56,9 @@ public class LogScatterView extends AbstractAnalysis {
     ArrayList<SpaceTransformer> transformers = new ArrayList();
 
     public void init() {
-
+        if (chart != null) {
+            chart.dispose();
+        }
         //key 全件メモリにセット
         /*
                 try{
@@ -106,8 +108,9 @@ public class LogScatterView extends AbstractAnalysis {
         /*
                 http://doc.jzy3d.org/javadoc/1.0.0/jzy3d-api/index.html
          */
+
         ConcurrentScatterMultiColorList scatter = new ConcurrentScatterMultiColorList(points, new ColorMapper(new ColorMapRainbow(), 0.1, 1.1, new Color(1, 1, 1, .5f)));
-        chart = AWTChartComponentFactory.chart(Quality.Fastest, "awt");
+        chart = AWTChartComponentFactory.chart(Quality.Nicest, "awt");
         chart.addLight(new Coord3d(Emotion.xxx,Emotion.yyy,Emotion.zzz), Color.BLACK, Color.BLUE, Color.YELLOW, 0.1f);
         chart.getView();
         chart.getScene().add(scatter);
@@ -130,7 +133,7 @@ public class LogScatterView extends AbstractAnalysis {
             //ITextRenderer.
             //drawText(anchor.get(i).word, new Coord3d(anchor.get(i).x,anchor.get(i).y,anchor.get(i).z), Color.BLUE, cellRenderer);
         }
-
+        
     }
 
 }
