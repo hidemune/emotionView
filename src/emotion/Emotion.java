@@ -31,6 +31,7 @@ public class Emotion {
     public static ArrayList<EmotionAnchor> anchor = new ArrayList<>();
     public static ArrayList<Keyword> keys = new ArrayList<>();
     static emotionJFrame frm;
+    public static Double xxx,yyy,zzz;
     /**
      * @param args the command line arguments
      */
@@ -52,7 +53,9 @@ public class Emotion {
         anchor.add(new EmotionAnchor("surprise","驚き",-1d,-1d,-1d));
         anchor.add(new EmotionAnchor("aggressiveness","攻撃的",0d,1d,0d));
         anchor.add(new EmotionAnchor("awe","畏れ",0d,-1d,0d));
-        
+        xxx = 0d;
+        yyy = 0d;
+        zzz = 0d;
         frm = new emotionJFrame();
         frm.setVisible(true);
         

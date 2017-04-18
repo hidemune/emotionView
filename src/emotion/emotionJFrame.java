@@ -5,6 +5,7 @@
  */
 package emotion;
 
+import static emotion.Emotion.anchor;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Toolkit;
@@ -96,6 +97,10 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        jSlider1 = new javax.swing.JSlider();
+        jSlider2 = new javax.swing.JSlider();
+        jSlider3 = new javax.swing.JSlider();
+        jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("感情モデル作成");
@@ -114,6 +119,11 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
 
         emotion.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         emotion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        emotion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emotionActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("登録");
         jButton1.setEnabled(false);
@@ -169,6 +179,36 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
             }
         });
 
+        jSlider1.setMaximum(2000);
+        jSlider1.setValue(1000);
+        jSlider1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSlider1StateChanged(evt);
+            }
+        });
+
+        jSlider2.setMaximum(2000);
+        jSlider2.setValue(1000);
+        jSlider2.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSlider2StateChanged(evt);
+            }
+        });
+
+        jSlider3.setMaximum(2000);
+        jSlider3.setValue(1000);
+        jSlider3.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSlider3StateChanged(evt);
+            }
+        });
+
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -182,12 +222,23 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
                 .addComponent(jButton4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 312, Short.MAX_VALUE)
-                .addComponent(jButton6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(emotion, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
+                        .addComponent(jButton6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(emotion, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jSlider2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSlider3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
             .addComponent(jScrollPane2)
         );
         layout.setVerticalGroup(
@@ -195,16 +246,26 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
             .addGroup(layout.createSequentialGroup()
                 .addComponent(url, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(emotion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(emotion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1)
+                            .addComponent(jButton2)
+                            .addComponent(jButton3)
+                            .addComponent(jButton4)
+                            .addComponent(jButton5)
+                            .addComponent(jButton6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSlider2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSlider3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(4, 4, 4)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE))
         );
 
         pack();
@@ -280,6 +341,68 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
+        Emotion.xxx = (double)jSlider1.getValue() / 1000d - 1d;
+        setWord();
+    }//GEN-LAST:event_jSlider1StateChanged
+
+    private void jSlider2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider2StateChanged
+        Emotion.zzz = (double)jSlider2.getValue() / 1000d - 1d;
+        setWord();
+    }//GEN-LAST:event_jSlider2StateChanged
+
+    private void jSlider3StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider3StateChanged
+        Emotion.yyy = (double)jSlider3.getValue() / 1000d - 1d;
+        setWord();
+    }//GEN-LAST:event_jSlider3StateChanged
+
+    private void emotionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emotionActionPerformed
+        EmotionAnchor ancNow = null;
+        for (int i = 0; i < anchor.size(); i++) {
+            if (anchor.get(i).word.equals(emotion.getSelectedItem())) {
+                ancNow = anchor.get(i);
+            }
+        }
+        if (ancNow == null) {
+            return;
+        }
+        jSlider1.setValue((int) (ancNow.x * 1000 + 1000));
+        jSlider2.setValue((int) (ancNow.z * 1000 + 1000));
+        jSlider3.setValue((int) (ancNow.y * 1000 + 1000));
+    }//GEN-LAST:event_emotionActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        searchKey();
+    }//GEN-LAST:event_jTextField1ActionPerformed
+    private void setWord(){
+        html.setText("");
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < Emotion.keys.size(); i++) {
+            if (Math.abs((Emotion.keys.get(i).x) - Emotion.xxx ) < 0.1d) {
+            if (Math.abs((Emotion.keys.get(i).y) - Emotion.yyy ) < 0.1d) {
+            if (Math.abs((Emotion.keys.get(i).z) - Emotion.zzz ) < 0.1d) {
+                sb.append(Emotion.keys.get(i).word + " ");
+            }}}
+        }
+        html.setText(sb.toString());
+    }
+    private void searchKey() {
+        //html.setText("Search...");
+        //jTextField1.setBackground(Color.red);
+        String str = jTextField1.getText();
+        for (int i = 0; i < Emotion.keys.size(); i++) {
+            if (str.equals(Emotion.keys.get(i).word)) {
+                jSlider1.setValue((int) (Emotion.keys.get(i).x * 1000 + 1000));
+                jSlider2.setValue((int) (Emotion.keys.get(i).z * 1000 + 1000));
+                jSlider3.setValue((int) (Emotion.keys.get(i).y * 1000 + 1000));
+                //setWord();
+                break;
+            }
+        }
+        //jTextField1.setBackground(Color.white);
+        //html.setText("End...");
+
+    }
     /**
      * @param args the command line arguments
      */
@@ -358,6 +481,10 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSlider jSlider1;
+    private javax.swing.JSlider jSlider2;
+    private javax.swing.JSlider jSlider3;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField url;
     // End of variables declaration//GEN-END:variables
 }
