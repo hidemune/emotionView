@@ -207,61 +207,71 @@ create table emotionwords (
             InputStream is = process.getInputStream();	//標準出力
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             try {
+                boolean flgCm = false;
                 for (;;) {
                     String line2 = br.readLine();
                     if (line2 == null) break;
                     line2 = line2.replaceAll("<.+?>", "");
-                    String arr[] = line2.split("[\t,]");
-                    String keyword = arr[0];
-                    boolean flgOk = true;
-                    if (arr.length <= 1) {
-                        flgOk = false;
+                    if (line2.indexOf("<!--") >= 0) {
+                        flgCm =true;
                     }
-                    if (flgOk && (arr[2].equals("数"))) {
-                        flgOk = false;
+                     if (line2.indexOf("-->") >= 0) {
+                        flgCm =false;
+                        line2 = line2.replaceAll("^.+?-->", "");
                     }
-                    if (flgOk) {
-                        if (!("*".equals(arr[7]))) {
-                            keyword = arr[7];
+                    if (!flgCm) {
+                        String arr[] = line2.split("[\t,]");
+                        String keyword = arr[0];
+                        boolean flgOk = true;
+                        if (arr.length <= 1) {
+                            flgOk = false;
                         }
-                        //System.out.println(keyword);
-                        int i = 0;
-                        boolean flg = false;
-                        for (i = 0;i < keys.size(); i++) {
-                            if (((Keyword)keys.get(i)).word.equals(keyword)) {
-                                flg = true;
-                                break;
+                        if (flgOk && (arr[2].equals("数"))) {
+                            flgOk = false;
+                        }
+                        if (flgOk) {
+                            if (!("*".equals(arr[7]))) {
+                                keyword = arr[7];
                             }
-                        }
-                        if (!flg) {
-                            Keyword wk = new Keyword();
-                            wk.word = keyword;
-                            wk.bunbo = 1d;
-                            wk.x = ancNow.x;
-                            wk.y = ancNow.y;
-                            wk.z = ancNow.z;
-                            keys.add(wk);
-                            //System.out.println("add:" + keyword);
+                            //System.out.println(keyword);
+                            int i = 0;
+                            boolean flg = false;
+                            for (i = 0;i < keys.size(); i++) {
+                                if (((Keyword)keys.get(i)).word.equals(keyword)) {
+                                    flg = true;
+                                    break;
+                                }
+                            }
+                            if (!flg) {
+                                Keyword wk = new Keyword();
+                                wk.word = keyword;
+                                wk.bunbo = 1d;
+                                wk.x = ancNow.x;
+                                wk.y = ancNow.y;
+                                wk.z = ancNow.z;
+                                keys.add(wk);
+                                //System.out.println("add:" + keyword);
+                            } else {
+                                double X = keys.get(i).x;
+                                double Y = keys.get(i).y;
+                                double Z = keys.get(i).z;
+
+                                double bunbo = ((Keyword)keys.get(i)).bunbo;
+                                //内分点を探す
+                                X = (X * bunbo + ancNow.x)/(bunbo + 1d);
+                                Y = (Y * bunbo + ancNow.y)/(bunbo + 1d);
+                                Z = (Z * bunbo + ancNow.z)/(bunbo + 1d);
+                                bunbo = bunbo + 1d;
+                                ((Keyword)keys.get(i)).bunbo = bunbo;
+                                ((Keyword)keys.get(i)).x = X;
+                                ((Keyword)keys.get(i)).y = Y;
+                                ((Keyword)keys.get(i)).z = Z;
+                                //System.out.println(keys.get(i).word + ","+ X + ","+ Y + ","+ Z );
+                                //System.out.println(keys.get(i).word + ","+ keys.get(i).x + ","+ keys.get(i).y + ","+ keys.get(i).z );
+                            }
                         } else {
-                            double X = keys.get(i).x;
-                            double Y = keys.get(i).y;
-                            double Z = keys.get(i).z;
-                            
-                            double bunbo = ((Keyword)keys.get(i)).bunbo;
-                            //内分点を探す
-                            X = (X * bunbo + ancNow.x)/(bunbo + 1d);
-                            Y = (Y * bunbo + ancNow.y)/(bunbo + 1d);
-                            Z = (Z * bunbo + ancNow.z)/(bunbo + 1d);
-                            bunbo = bunbo + 1d;
-                            ((Keyword)keys.get(i)).bunbo = bunbo;
-                            ((Keyword)keys.get(i)).x = X;
-                            ((Keyword)keys.get(i)).y = Y;
-                            ((Keyword)keys.get(i)).z = Z;
-                            //System.out.println(keys.get(i).word + ","+ X + ","+ Y + ","+ Z );
-                            //System.out.println(keys.get(i).word + ","+ keys.get(i).x + ","+ keys.get(i).y + ","+ keys.get(i).z );
+                            //EOS
                         }
-                    } else {
-                        //EOS
                     }
                 }
             }catch (Exception e) {
