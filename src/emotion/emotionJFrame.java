@@ -467,8 +467,9 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
         xx = Float.valueOf("" +Emotion.xxx) ;
         yy = Float.valueOf("" +Emotion.yyy) ;
         zz = Float.valueOf("" +Emotion.zzz) ;
-        LogScatterView.lgh.set(xx, yy, zz);
-        
+        if (LogScatterView.lgh != null) {
+            LogScatterView.lgh.set(xx, yy, zz);
+        }
         clipmode = true;
         double[] dist = new double[30];
         int idx = 100;
@@ -478,7 +479,7 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
             dist[i] = Math.pow((Emotion.anchor.get(i).x - Emotion.xxx ),2) 
                     + Math.pow((Emotion.anchor.get(i).y - Emotion.yyy ),2) 
                     + Math.pow((Emotion.anchor.get(i).z - Emotion.zzz ),2);
-            System.out.println("dist" + dist[i]);
+            //System.out.println("dist" + dist[i]);
         }
         for (int i = 0; i < Emotion.anchor.size(); i++) {
             if (dist[i] < min) {
@@ -486,7 +487,7 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
                 min = dist[i];
             }
         }
-        System.out.println("idx" + idx);
+        //System.out.println("idx" + idx);
         emotion.setSelectedIndex(idx);
         clipmode = bk;
         
