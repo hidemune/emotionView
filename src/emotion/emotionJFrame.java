@@ -12,6 +12,7 @@ import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import javafx.scene.input.MouseButton;
+import javax.swing.ButtonGroup;
 import javax.swing.JEditorPane;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
@@ -27,14 +28,19 @@ import javax.swing.text.html.StyleSheet;
  * @author user
  */
 public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListener {
-    private boolean clipmode = false;
+    private boolean clipmode;
+    private String nowUrl = "";
+    ButtonGroup group;
     /**
      * Creates new form emotionJFrame
      */
     public emotionJFrame() {
         initComponents();
-        url.setText("https://search.yahoo.co.jp/search?ei=UTF-8&p=");
-        //url.setText("https://search.yahoo.co.jp/search?ei=SJIS&p=");
+        if (Emotion.OS_NAME.startsWith("windows")) {
+            url.setText("https://search.yahoo.co.jp/search?ei=SJIS&p=");
+        } else {
+            url.setText("https://search.yahoo.co.jp/search?ei=UTF-8&p=");
+        }
         html.addHyperlinkListener(this);
         html.setBackground(Color.white);
         html.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
@@ -44,7 +50,10 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
         for (int i = 0; i < Emotion.anchor.size(); i++) {
             emotion.addItem(Emotion.anchor.get(i).word);
         }
-        
+        group = new ButtonGroup();
+        group.add(jRadioButton1);
+        group.add(jRadioButton2);
+        setMode();
     }
     public Document getHtml() {
         html.setText(html.getText().replaceAll("<.+?>", ""));
@@ -102,6 +111,8 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
         jSlider2 = new javax.swing.JSlider();
         jSlider3 = new javax.swing.JSlider();
         jTextField1 = new javax.swing.JTextField();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("感情モデル作成");
@@ -145,6 +156,11 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
 
         jButton2.setText("ページ読込");
         jButton2.setEnabled(false);
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jButton2MouseReleased(evt);
+            }
+        });
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -215,6 +231,21 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
             }
         });
 
+        jRadioButton1.setSelected(true);
+        jRadioButton1.setText("登録モード");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
+
+        jRadioButton2.setText("探索モード");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -244,6 +275,10 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
                             .addComponent(jSlider3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRadioButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRadioButton2)
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addComponent(jScrollPane2)
         );
@@ -262,8 +297,15 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
                             .addComponent(jButton4)
                             .addComponent(jButton5)
                             .addComponent(jButton6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jRadioButton1)
+                                    .addComponent(jRadioButton2)))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -285,13 +327,22 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
         jButton1.setEnabled(false);
         Emotion.setEmotion(emotion.getSelectedItem().toString(), this);
         jButton1.setEnabled(true);
-        clipmode = false;
+        //clipmode = false;
+        try {
+            Thread.sleep(1000);
+            html.setPage(nowUrl + "?");
+            //url.setText(nowUrl);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         html.setText("");
+        //clipmode = true;
         jButton2.setEnabled(false);
         try {
+            nowUrl = url.getText();
             html.setPage(url.getText());
             html.setBackground(Color.white);
         }catch (Exception e) {
@@ -337,7 +388,7 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         html.setText("");
-        clipmode = true;
+        //clipmode = true;
         //クリップボードから貼り付け
         Toolkit kit = Toolkit.getDefaultToolkit();
         Clipboard clip = kit.getSystemClipboard();
@@ -389,9 +440,26 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
 
     private void jButton6MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseReleased
         if (evt.getButton() == 3) {
-            clipmode = false;
+            //clipmode = false;
         }
     }//GEN-LAST:event_jButton6MouseReleased
+
+    private void jButton2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseReleased
+        if (evt.getButton() == 3) {
+            //clipmode = false;
+        }
+    }//GEN-LAST:event_jButton2MouseReleased
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        setMode();
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        setMode();
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
+    private void setMode(){
+        clipmode = jRadioButton1.isSelected();
+    }
     private void setWord(){
         //一番近い感情に寄せる
         boolean bk = clipmode;
@@ -504,6 +572,8 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
                 setStyle();
             } else {
                 try {
+                    nowUrl = e.getURL().toString();
+                    System.out.println("url:" + nowUrl);
                     pane.setPage(e.getURL());
                     setStyle();
                 } catch (Throwable t) {
@@ -521,6 +591,8 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSlider jSlider1;
     private javax.swing.JSlider jSlider2;

@@ -32,6 +32,7 @@ public class Emotion {
     public static ArrayList<Keyword> keys = new ArrayList<>();
     static emotionJFrame frm;
     public static Double xxx,yyy,zzz;
+    public static final String OS_NAME = System.getProperty("os.name").toLowerCase();
     /**
      * @param args the command line arguments
      */
