@@ -48,7 +48,7 @@ import org.jzy3d.plot3d.text.overlay.TextOverlay;
 import org.jzy3d.plot3d.transform.space.SpaceTransformer;
 
 public class LogScatterView extends AbstractAnalysis {
-
+    public static Coord3d lgh;
     public static void main(String[] args) throws Exception {
         AnalysisLauncher.open(new LogScatterView());
     }
@@ -59,6 +59,8 @@ public class LogScatterView extends AbstractAnalysis {
         if (chart != null) {
             chart.dispose();
         }
+        lgh = new Coord3d(Emotion.xxx,Emotion.yyy,Emotion.zzz);
+        
         //key 全件メモリにセット
         /*
                 try{
@@ -111,7 +113,7 @@ public class LogScatterView extends AbstractAnalysis {
 
         ConcurrentScatterMultiColorList scatter = new ConcurrentScatterMultiColorList(points, new ColorMapper(new ColorMapRainbow(), 0.1, 1.1, new Color(1, 1, 1, .5f)));
         chart = AWTChartComponentFactory.chart(Quality.Nicest, "awt");
-        chart.addLight(new Coord3d(Emotion.xxx,Emotion.yyy,Emotion.zzz), Color.BLACK, Color.BLUE, Color.YELLOW, 0.1f);
+        chart.addLight(lgh, Color.BLACK, Color.BLUE, Color.YELLOW, 0.1f);
         chart.getView();
         chart.getScene().add(scatter);
 

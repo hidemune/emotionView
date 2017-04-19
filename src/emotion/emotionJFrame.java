@@ -463,6 +463,12 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
     private void setWord(){
         //一番近い感情に寄せる
         boolean bk = clipmode;
+        float xx,yy,zz;
+        xx = Float.valueOf("" +Emotion.xxx) ;
+        yy = Float.valueOf("" +Emotion.yyy) ;
+        zz = Float.valueOf("" +Emotion.zzz) ;
+        LogScatterView.lgh.set(xx, yy, zz);
+        
         clipmode = true;
         double[] dist = new double[30];
         int idx = 100;
