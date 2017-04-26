@@ -355,7 +355,7 @@ create table emotionwords (
         long total = 0;
         long putCnt = 0;
         try {
-            File file = new File("nihongoDic.txt");
+            File file = new File("../nihongoDic.txt");
             BufferedReader brW = new BufferedReader(new FileReader(file));
 
             String str = brW.readLine();

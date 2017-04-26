@@ -299,6 +299,11 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
         });
 
         status.setText("status...");
+        status.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                statusMouseClicked(evt);
+            }
+        });
 
         jButton8.setText("文章分析");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
@@ -415,6 +420,9 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
         status.setText("登録しました。");
         //clipmode = false;
         try {
+            if ("".equals(nowUrl)){
+                return;
+            }
             Thread.sleep(1000);
             html.setPage(nowUrl + "?");
             //url.setText(nowUrl);
@@ -577,6 +585,10 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         Emotion.bunseki();
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void statusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_statusMouseClicked
+        status.setText("");
+    }//GEN-LAST:event_statusMouseClicked
     private void setMode(){
         clipmode = !(jRadioButton2.isSelected());
         if (jRadioButton3.isSelected()) {
