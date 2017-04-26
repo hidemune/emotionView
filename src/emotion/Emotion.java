@@ -197,12 +197,165 @@ create table emotionwords (
 
         frm.setOk();
     }
-
+    public static void bunseki() {
+        try {
+            //mecab
+            //BufferedWriter bw = null;
+            FileWriter fw = null;
+            fw = new FileWriter("emotion_wk.txt");
+            //bw = new BufferedWriter(fw);
+            Document doc = frm.getHtml();
+            HteWriter hte = new HteWriter(fw, doc, 0, 999999999);
+            hte.write();
+            fw.close();
+            //タグの無効化
+            FileReader fr = new FileReader("emotion_wk.txt");
+            BufferedReader br2 = new BufferedReader(fr);
+            StringBuilder sb2 = new StringBuilder();
+            for (;;) {
+                String line3 = br2.readLine();
+                if (line3 == null) {
+                    break;
+                }
+                line3 = line3.replaceAll("<.+?>", "").trim();
+                sb2.append(line3);
+                sb2.append("\n");
+            }
+            br2.close();
+            fr.close();
+            FileWriter fw2 = new FileWriter("emotion_wk.txt");
+            BufferedWriter bw = new BufferedWriter(fw2);
+            bw.write(sb2.toString());
+            bw.flush();
+            bw.close();
+            fw2.close();
+            
+            ProcessBuilder pb = new ProcessBuilder("mecab", "emotion_wk.txt");
+            Process process = pb.start();
+            InputStream is = process.getInputStream();	//標準出力
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            ArrayList<Keyword> bkup;
+            ArrayList<Keyword> bunseki = new ArrayList<>();
+            try {
+                boolean flgCm = false;
+                for (;;) {
+                    String line2 = br.readLine();
+                    if (line2 == null) {
+                        break;
+                    }
+                    line2 = line2.replaceAll("<.+?>", "");
+                    if (line2.indexOf("<!--") >= 0) {
+                        flgCm = true;
+                    }
+                    if (line2.indexOf("-->") >= 0) {
+                        flgCm = false;
+                        line2 = line2.replaceAll("^.+?-->", "");
+                    }
+                    if (!flgCm) {
+                        String arr[] = line2.split("[\t,]");
+                        String keyword = arr[0];
+                        boolean flgOk = true;
+                        if (arr.length <= 1) {
+                            flgOk = false;
+                        }
+                        if (flgOk && (arr[2].equals("数"))) {
+                            flgOk = false;
+                        }
+                        if (flgOk) {
+                            if (!("*".equals(arr[7]))) {
+                                keyword = arr[7];
+                            }
+                            //System.out.println(keyword);
+                            int i = 0;
+                            boolean flg = false;
+                            for (i = 0; i < keys.size(); i++) {
+                                if (((Keyword) keys.get(i)).word.equals(keyword)) {
+                                    flg = true;
+                                    break;
+                                }
+                            }
+                            if (!flg) {
+                                Keyword wk = new Keyword();
+                                wk.word = keyword;
+                                wk.bunbo = 1d;
+                                wk.x = 0;
+                                wk.y = 0;
+                                wk.z = 0;
+                                bunseki.add(wk);
+                                //System.out.println("add:" + keyword);
+                            } else {
+                                bunseki.add(keys.get(i));
+                            }
+                        } else {
+                            //EOS
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                br.close();
+            }
+            StringBuilder sb = new StringBuilder();
+            sb.append(sb2.toString());
+            sb.append("<br>");
+            for (int j = 0; j < bunseki.size(); j++) {
+                sb.append(bunseki.get(j).word);
+                sb.append("\t");
+                sb.append(String.format("%.3f",  bunseki.get(j).x));
+                sb.append("\t");
+                sb.append(String.format("%.3f",  bunseki.get(j).z));
+                sb.append("\t");
+                sb.append(String.format("%.3f",  bunseki.get(j).y));
+                sb.append("<br>");
+            }
+            frm.setText(sb.toString());
+            bkup = keys;
+            keys = bunseki;
+            int maxCnt = keys.size();
+            
+            for (int i = 0; i < maxCnt-1; i++){
+                Keyword sta = new Keyword();
+                Keyword end = new Keyword();
+                sta = keys.get(i);
+                end = keys.get(i+1);
+                //sta-end Line
+                for (int j = 0; j < 20; j++){
+                    //内分点
+                    Keyword pt = new Keyword();
+                    pt.x = (sta.x * (double)j + end.x * (double)(20-j)) / 20d;
+                    pt.y = (sta.y * (double)j + end.y * (double)(20-j)) / 20d;
+                    pt.z = (sta.z * (double)j + end.z * (double)(20-j)) / 20d;
+                    keys.add(pt);
+                }
+            }
+            for (int i = 0; i < anchor.size(); i++) {
+                Keyword key = new Keyword();
+                key.word = anchor.get(i).word;
+                key.x = anchor.get(i).x;
+                key.z = anchor.get(i).z;
+                key.y = anchor.get(i).y;
+                key.bunbo = 1;
+                keys.add(key);
+            }
+            LogScatterView lv = new LogScatterView();
+            lv.init();
+            try {
+                Emotion.saveEmotion(false);
+                LogScatterView.main(null);
+            }catch  (Exception e) {
+                e.printStackTrace();
+            }
+            keys = bkup;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     public static void bengakuniisosimu(String fname) {
         long total = 0;
         long putCnt = 0;
         try {
-            File file = new File("/home/user/git/nihongoDic.txt");
+            File file = new File("nihongoDic.txt");
             BufferedReader brW = new BufferedReader(new FileReader(file));
 
             String str = brW.readLine();
