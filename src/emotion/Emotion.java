@@ -93,7 +93,7 @@ public class Emotion {
                 key.x = anchor.get(i).x;
                 key.z = anchor.get(i).z;
                 key.y = anchor.get(i).y;
-                key.bunbo = 1;
+                key.bunbo = 1000000;
                 keys.add(key);
             }
         }
@@ -226,7 +226,7 @@ create table emotionwords (
             FileWriter fw2 = new FileWriter("emotion_wk.txt");
             BufferedWriter bw = new BufferedWriter(fw2);
             bw.write(sb2.toString());
-            bw.flush();
+            //bw.flush();
             bw.close();
             fw2.close();
             
@@ -335,7 +335,7 @@ create table emotionwords (
                 key.x = anchor.get(i).x;
                 key.z = anchor.get(i).z;
                 key.y = anchor.get(i).y;
-                key.bunbo = 1;
+                key.bunbo = 1000000;
                 keys.add(key);
             }
             LogScatterView lv = new LogScatterView();
@@ -361,6 +361,7 @@ create table emotionwords (
             String str = brW.readLine();
             while (str != null) {
                 //mecab 分解
+                Keyword bkKey = keys.get(0); //無関心
                 try {
                     //mecab
                     //BufferedWriter bw = null;
@@ -375,8 +376,6 @@ create table emotionwords (
                     Process process = pb.start();
                     InputStream is = process.getInputStream();	//標準出力
                     BufferedReader br = new BufferedReader(new InputStreamReader(is));
-                    
-                    Keyword bkKey = keys.get(0); //無関心
                     try {
                         boolean flgCm = false;
                         for (;;) {
@@ -385,7 +384,7 @@ create table emotionwords (
                                 break;
                             }
                             System.out.println(line2);
-                            line2 = line2.replaceAll("<.+?>", "");
+                            line2 = line2.replaceAll("<.+?>", "").trim();
                             if (line2.indexOf("<!--") >= 0) {
                                 flgCm = true;
                             }
@@ -393,6 +392,7 @@ create table emotionwords (
                                 flgCm = false;
                                 line2 = line2.replaceAll("^.+?-->", "");
                             }
+                            System.out.println(line2);
                             if (!flgCm) {
                                 String arr[] = line2.split("[\t,]");
                                 String keyword = arr[0];
@@ -401,6 +401,15 @@ create table emotionwords (
                                     flgOk = false;
                                 }
                                 if (flgOk && (arr[2].equals("数"))) {
+                                    flgOk = false;
+                                }
+                                if (flgOk && (arr[1].equals("記号"))) {
+                                    flgOk = false;
+                                }
+                                if (flgOk && (arr[1].equals("助詞"))) {
+                                    flgOk = false;
+                                }
+                                if (flgOk && (arr[1].equals("助動詞"))) {
                                     flgOk = false;
                                 }
                                 if (flgOk) {
@@ -425,17 +434,7 @@ create table emotionwords (
                                             bunbo ++;
                                         }
                                     }
-                                    total ++;
-                                    double distbk = Math.pow(bkKey.x, 2) + Math.pow(bkKey.y, 2) + Math.pow(bkKey.z, 2) ;
-                                    if (distbk <= 1d) {
-                                        //無関心は記憶できない
-                                        System.out.println("lost");
-                                    }else{
-                                        //印象登録
-                                        putCnt++;
-                                        System.out.println("put");
-                                        setFuzzyEmotion(bkKey, line2);
-                                    }
+
                                     
                                 } else {
                                     //EOS
@@ -451,6 +450,17 @@ create table emotionwords (
                     e.printStackTrace();
                 }
                 //固定のアンカーを探す
+                total ++;
+                double distbk = Math.pow(bkKey.x, 2) + Math.pow(bkKey.y, 2) + Math.pow(bkKey.z, 2) ;
+                if (distbk <= 1d) {
+                    //無関心は記憶できない
+                    System.out.println("lost");
+                }else{
+                    //印象登録
+                    putCnt++;
+                    System.out.println("put");
+                    setFuzzyEmotion(bkKey, str);
+                }
                 str = brW.readLine();
             }
         } catch (Exception e) {
@@ -478,7 +488,28 @@ create table emotionwords (
             HteWriter hte = new HteWriter(fw, doc, 0, 999999999);
             hte.write();
             fw.close();
-
+            //タグの無効化
+            FileReader fr = new FileReader("emotion_wk.txt");
+            BufferedReader br2 = new BufferedReader(fr);
+            StringBuilder sb2 = new StringBuilder();
+            for (;;) {
+                String line3 = br2.readLine();
+                if (line3 == null) {
+                    break;
+                }
+                line3 = line3.replaceAll("<.+?>", "").trim();
+                sb2.append(line3);
+                sb2.append("\n");
+            }
+            br2.close();
+            fr.close();
+            FileWriter fw2 = new FileWriter("emotion_wk.txt");
+            BufferedWriter bw = new BufferedWriter(fw2);
+            bw.write(sb2.toString());
+            //bw.flush();
+            bw.close();
+            fw2.close();
+            
             ProcessBuilder pb = new ProcessBuilder("mecab", "emotion_wk.txt");
             Process process = pb.start();
             InputStream is = process.getInputStream();	//標準出力
@@ -490,7 +521,7 @@ create table emotionwords (
                     if (line2 == null) {
                         break;
                     }
-                    line2 = line2.replaceAll("<.+?>", "");
+                    line2 = line2.replaceAll("<.+?>", "").trim();
                     if (line2.indexOf("<!--") >= 0) {
                         flgCm = true;
                     }
@@ -506,6 +537,15 @@ create table emotionwords (
                             flgOk = false;
                         }
                         if (flgOk && (arr[2].equals("数"))) {
+                            flgOk = false;
+                        }
+                        if (flgOk && (arr[1].equals("記号"))) {
+                            flgOk = false;
+                        }
+                        if (flgOk && (arr[1].equals("助詞"))) {
+                            flgOk = false;
+                        }
+                        if (flgOk && (arr[1].equals("助動詞"))) {
                             flgOk = false;
                         }
                         if (flgOk) {
@@ -585,7 +625,7 @@ create table emotionwords (
                     if (line2 == null) {
                         break;
                     }
-                    line2 = line2.replaceAll("<.+?>", "");
+                    line2 = line2.replaceAll("<.+?>", "").trim();
                     if (line2.indexOf("<!--") >= 0) {
                         flgCm = true;
                     }
