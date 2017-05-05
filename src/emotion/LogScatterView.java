@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Random;
+import javax.swing.JFrame;
 
 import org.jzy3d.analysis.AbstractAnalysis;
 import org.jzy3d.analysis.AnalysisLauncher;
@@ -24,6 +25,7 @@ import org.jzy3d.colors.ColorMapper;
 import org.jzy3d.colors.colormaps.ColorMapRainbow;
 import org.jzy3d.maths.Coord2d;
 import org.jzy3d.maths.Coord3d;
+import org.jzy3d.maths.Rectangle;
 import org.jzy3d.plot2d.rendering.JavaGraphics;
 import org.jzy3d.plot3d.primitives.ConcurrentScatterMultiColorList;
 import org.jzy3d.plot3d.primitives.Scatter;
@@ -49,8 +51,14 @@ import org.jzy3d.plot3d.transform.space.SpaceTransformer;
 
 public class LogScatterView extends AbstractAnalysis {
     public static Coord3d lgh;
+    static JFrame mainFrm;
+    public LogScatterView(JFrame mainFrm) {
+        this.mainFrm = mainFrm;
+    }
     public static void main(String[] args) throws Exception {
-        AnalysisLauncher.open(new LogScatterView());
+        AnalysisLauncher.open(new LogScatterView(mainFrm),
+                new Rectangle(mainFrm.getX(), mainFrm.getY(),
+                        mainFrm.getWidth(), mainFrm.getHeight()));
     }
 
     ArrayList<SpaceTransformer> transformers = new ArrayList();

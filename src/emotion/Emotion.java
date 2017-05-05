@@ -338,7 +338,7 @@ create table emotionwords (
                 key.bunbo = 1000000;
                 keys.add(key);
             }
-            LogScatterView lv = new LogScatterView();
+            LogScatterView lv = new LogScatterView(frm);
             lv.init();
             try {
                 Emotion.saveEmotion(false);

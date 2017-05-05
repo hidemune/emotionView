@@ -16,6 +16,7 @@ import java.awt.datatransfer.DataFlavor;
 import javafx.scene.input.MouseButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JEditorPane;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
@@ -35,6 +36,7 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
     private boolean clipmode;
     private String nowUrl = "";
     ButtonGroup group;
+    JFrame mainFrm = this;
     /**
      * Creates new form emotionJFrame
      */
@@ -470,7 +472,7 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
     }//GEN-LAST:event_formWindowClosing
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        LogScatterView view = new LogScatterView();
+        LogScatterView view = new LogScatterView(mainFrm);
         view.init();
         try {
             Emotion.saveEmotion(false);
