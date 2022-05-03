@@ -322,9 +322,18 @@ create table emotionwords (
             StringBuilder sb = new StringBuilder();
             sb.append(sb2.toString());
             sb.append("<br>");
+            double xT = 0d;
+            double yT = 0d;
+            double zT = 0d;
+            
             for (int j = 0; j < bunseki.size(); j++) {
                 String prt = (bunseki.get(j).word + "　　　　　　　　　　　　　　　　　　　").substring(0, 10);
                 sb.append(prt);
+                
+                xT += bunseki.get(j).x;
+                yT += bunseki.get(j).y;
+                zT += bunseki.get(j).z;
+                
                 /*
                 sb.append("\t");
                 sb.append(String.format("%.3f",  bunseki.get(j).x));
@@ -337,6 +346,14 @@ create table emotionwords (
                 sb.append(getEmotionAncor(bunseki.get(j).x, bunseki.get(j).y, bunseki.get(j).z));
                 sb.append("<br>");
             }
+
+            String prt = ("【文章全体】　　　　　　　　　　　　　　　　　　　").substring(0, 10);
+            sb.append(prt);
+            sb.append("\t");
+            sb.append(getEmotionAncor(xT, yT, zT));
+            sb.append("<br>");
+
+
             frm.setText(sb.toString());
             bkup = keys;
             keys = bunseki;
@@ -641,7 +658,9 @@ create table emotionwords (
             for (int i = 1; i < anchor.size(); i++) {
                 // 一番近いのを探す
 
-                double lenBk2 = Math.sqrt( Math.pow(anchor.get(i).x - x / lenBk, 2) + Math.pow(anchor.get(i).y - y / lenBk, 2) + Math.pow(anchor.get(i).z - z / lenBk, 2) );
+                double lenBkA = Math.sqrt( Math.pow(anchor.get(i).x , 2) + Math.pow(anchor.get(i).y , 2) + Math.pow(anchor.get(i).z , 2) );
+                
+                double lenBk2 = Math.sqrt( Math.pow(anchor.get(i).x / lenBkA - x / lenBk, 2) + Math.pow(anchor.get(i).y / lenBkA - y / lenBk, 2) + Math.pow(anchor.get(i).z / lenBkA - z / lenBk, 2) );
 
                 if (lgt > lenBk2) {
                     double score = (1d - lenBk2) * 100d;
