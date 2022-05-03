@@ -76,7 +76,7 @@ public class Emotion {
         anchor.add(new EmotionAnchor("remorse", "自責", -1d, 1d, -1d));
         anchor.add(new EmotionAnchor("surprise", "驚き", -1d, -1d, 0d));
         anchor.add(new EmotionAnchor("awe", "畏れ", -1d, -1d, 1d));
-        anchor.add(new EmotionAnchor("disapproval", "失望", -1d, -1d, -1d));
+        anchor.add(new EmotionAnchor("disapproval", "拒絶", -1d, -1d, -1d));
         anchor.add(new EmotionAnchor("anger", "怒り", 0d, 1d, 0d));
         anchor.add(new EmotionAnchor("fear", "恐怖", 0d, -1d, 0d));
         
@@ -634,14 +634,21 @@ create table emotionwords (
     public static String getEmotionAncor(double x,double y,double z) {
         String ret = "";
         Double lgt = 999999999d;
-        for (int i = 1; i < anchor.size(); i++) {
-            // 一番近いのを探す
-            double distbk = Math.pow(anchor.get(i).x - x, 2) + Math.pow(anchor.get(i).y - y, 2) + Math.pow(anchor.get(i).z - z, 2) ;
-            if (lgt > distbk) {
-                double score = (1d - distbk) * 100d;
-                if (score > 1d) {
-                    ret = Double.toString( score ).substring(0, 5) + "% " + anchor.get(i).word + "(" + anchor.get(i).wordEng + ")";
-                    lgt = distbk;
+        double lenBk = Math.sqrt( Math.pow( x, 2) + Math.pow( y, 2) + Math.pow( z, 2) );
+        if (lenBk == 0) {
+            
+        } else {
+            for (int i = 1; i < anchor.size(); i++) {
+                // 一番近いのを探す
+
+                double lenBk2 = Math.sqrt( Math.pow(anchor.get(i).x - x / lenBk, 2) + Math.pow(anchor.get(i).y - y / lenBk, 2) + Math.pow(anchor.get(i).z - z / lenBk, 2) );
+
+                if (lgt > lenBk2) {
+                    double score = (1d - lenBk2) * 100d;
+                    if (score > 1d) {
+                        ret = Double.toString( score ).substring(0, 5) + "% " + anchor.get(i).word + "(" + anchor.get(i).wordEng + ")";
+                        lgt = lenBk2;
+                    }
                 }
             }
         }
