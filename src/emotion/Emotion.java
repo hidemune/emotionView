@@ -40,6 +40,8 @@ public class Emotion {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        /*
+        // for Christian
         anchor.add(new EmotionAnchor("", "無関心", 0d, 0d, 0d));
         anchor.add(new EmotionAnchor("love", "愛", 1d, 0d, 0d));
         anchor.add(new EmotionAnchor("optimism", "楽観", 1d, 1d, 0d));
@@ -55,8 +57,29 @@ public class Emotion {
         anchor.add(new EmotionAnchor("disapproval", "失望", -1d, -1d, 0d));
         anchor.add(new EmotionAnchor("sadness", "悲しみ", -1d, -1d, 1d));
         anchor.add(new EmotionAnchor("surprise", "驚き", -1d, -1d, -1d));
-        anchor.add(new EmotionAnchor("aggressiveness", "攻撃的", 0d, 1d, 0d));
+        anchor.add(new EmotionAnchor("aggressiveness", "攻撃", 0d, 1d, 0d));
         anchor.add(new EmotionAnchor("awe", "畏れ", 0d, -1d, 0d));
+        */
+        
+        // for Buddist
+        anchor.add(new EmotionAnchor("", "無関心", 0d, 0d, 0d));
+        anchor.add(new EmotionAnchor("joy", "喜び", 1d, 0d, 0d));
+        anchor.add(new EmotionAnchor("anticipation", "関心", 1d, 1d, 0d));
+        anchor.add(new EmotionAnchor("optimism", "楽観", 1d, 1d, 1d));
+        anchor.add(new EmotionAnchor("aggressiveness", "攻撃", 1d, 1d, -1d));
+        anchor.add(new EmotionAnchor("trust", "信頼", 1d, -1d, 0d));
+        anchor.add(new EmotionAnchor("love", "愛", 1d, -1d, 1d));
+        anchor.add(new EmotionAnchor("submission", "服従", 1d, -1d, -1d));
+        anchor.add(new EmotionAnchor("sadness", "悲しみ", -1d, 0d, 0d));
+        anchor.add(new EmotionAnchor("disgust", "憎しみ", -1d, 1d, 0d));
+        anchor.add(new EmotionAnchor("contempt", "軽蔑", -1d, 1d, 1d));
+        anchor.add(new EmotionAnchor("remorse", "自責", -1d, 1d, -1d));
+        anchor.add(new EmotionAnchor("surprise", "驚き", -1d, -1d, 0d));
+        anchor.add(new EmotionAnchor("awe", "畏れ", -1d, -1d, 1d));
+        anchor.add(new EmotionAnchor("disapproval", "失望", -1d, -1d, -1d));
+        anchor.add(new EmotionAnchor("anger", "怒り", 0d, 1d, 0d));
+        anchor.add(new EmotionAnchor("fear", "恐怖", 0d, -1d, 0d));
+        
         xxx = 0d;
         yyy = 0d;
         zzz = 0d;
@@ -300,13 +323,18 @@ create table emotionwords (
             sb.append(sb2.toString());
             sb.append("<br>");
             for (int j = 0; j < bunseki.size(); j++) {
-                sb.append(bunseki.get(j).word);
+                String prt = (bunseki.get(j).word + "　　　　　　　　　　　　　　　　　　　").substring(0, 10);
+                sb.append(prt);
+                /*
                 sb.append("\t");
                 sb.append(String.format("%.3f",  bunseki.get(j).x));
                 sb.append("\t");
                 sb.append(String.format("%.3f",  bunseki.get(j).z));
                 sb.append("\t");
                 sb.append(String.format("%.3f",  bunseki.get(j).y));
+                */
+                sb.append("\t");
+                sb.append(getEmotionAncor(bunseki.get(j).x, bunseki.get(j).y, bunseki.get(j).z));
                 sb.append("<br>");
             }
             frm.setText(sb.toString());
@@ -338,11 +366,11 @@ create table emotionwords (
                 key.bunbo = 1000000;
                 keys.add(key);
             }
-            LogScatterView lv = new LogScatterView(frm);
+            EmotionCoordinateView lv = new EmotionCoordinateView(frm);
             lv.init();
             try {
                 Emotion.saveEmotion(false);
-                LogScatterView.main(null);
+                EmotionCoordinateView.main(null);
             }catch  (Exception e) {
                 e.printStackTrace();
             }
@@ -603,6 +631,23 @@ create table emotionwords (
         }
     }
 
+    public static String getEmotionAncor(double x,double y,double z) {
+        String ret = "";
+        Double lgt = 999999999d;
+        for (int i = 1; i < anchor.size(); i++) {
+            // 一番近いのを探す
+            double distbk = Math.pow(anchor.get(i).x - x, 2) + Math.pow(anchor.get(i).y - y, 2) + Math.pow(anchor.get(i).z - z, 2) ;
+            if (lgt > distbk) {
+                double score = (1d - distbk) * 100d;
+                if (score > 1d) {
+                    ret = Double.toString( score ).substring(0, 5) + "% " + anchor.get(i).word + "(" + anchor.get(i).wordEng + ")";
+                    lgt = distbk;
+                }
+            }
+        }
+        return ret;
+    }
+    
     public static void setFuzzyEmotion(Keyword ancNow, String line) {
         try {
             //mecab

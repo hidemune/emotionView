@@ -49,14 +49,15 @@ import org.jzy3d.plot3d.text.overlay.SwingTextOverlay;
 import org.jzy3d.plot3d.text.overlay.TextOverlay;
 import org.jzy3d.plot3d.transform.space.SpaceTransformer;
 
-public class LogScatterView extends AbstractAnalysis {
+public class EmotionCoordinateView extends AbstractAnalysis {
     public static Coord3d lgh;
     static JFrame mainFrm;
-    public LogScatterView(JFrame mainFrm) {
+    public EmotionCoordinateView(JFrame mainFrm) {
         this.mainFrm = mainFrm;
     }
+    
     public static void main(String[] args) throws Exception {
-        AnalysisLauncher.open(new LogScatterView(mainFrm),
+        AnalysisLauncher.open(new EmotionCoordinateView(mainFrm),
                 new Rectangle(mainFrm.getX(), mainFrm.getY(),
                         mainFrm.getWidth(), mainFrm.getHeight()));
     }
@@ -131,6 +132,7 @@ public class LogScatterView extends AbstractAnalysis {
         for (int i = 0; i < anchor.size(); i++) {
 
             DrawableTextBitmap bit = new DrawableTextBitmap(anchor.get(i).wordEng, new Coord3d(anchor.get(i).x, anchor.get(i).y, anchor.get(i).z), Color.BLUE);
+            
             chart.addDrawable(bit);
 
             //to.paint(setFont(new Font("VL Gothic",0,16)));

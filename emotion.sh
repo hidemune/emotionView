@@ -5,4 +5,6 @@ echo $CURDIR
 
 cd $CURDIR
 
-java -jar emotion.jar
+PATH=/home/user/jdk1.8.0_111/bin/:$PATH
+
+java -jar dist/emotion.jar

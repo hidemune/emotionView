@@ -457,7 +457,7 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
         jButton2.setEnabled(false);
         jButton3.setEnabled(false);
         try{
-            Emotion.saveEmotion(true);
+            //Emotion.saveEmotion(true);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -465,18 +465,18 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         try{
-            Emotion.saveEmotion(true);
+            //Emotion.saveEmotion(true);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_formWindowClosing
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        LogScatterView view = new LogScatterView(mainFrm);
+        EmotionCoordinateView view = new EmotionCoordinateView(mainFrm);
         view.init();
         try {
-            Emotion.saveEmotion(false);
-            LogScatterView.main(null);
+            //Emotion.saveEmotion(false);
+            EmotionCoordinateView.main(null);
         }catch  (Exception e) {
             e.printStackTrace();
         }
@@ -613,8 +613,8 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
         xx = Float.valueOf("" +Emotion.xxx) ;
         yy = Float.valueOf("" +Emotion.yyy) ;
         zz = Float.valueOf("" +Emotion.zzz) ;
-        if (LogScatterView.lgh != null) {
-            LogScatterView.lgh.set(xx, yy, zz);
+        if (EmotionCoordinateView.lgh != null) {
+            EmotionCoordinateView.lgh.set(xx, yy, zz);
         }
         clipmode = true;
         double[] dist = new double[30];
