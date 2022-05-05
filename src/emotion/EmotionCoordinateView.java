@@ -135,15 +135,17 @@ public class EmotionCoordinateView extends AbstractAnalysis {
             
             chart.addDrawable(bit);
 
+            /*
             //to.paint(setFont(new Font("VL Gothic",0,16)));
-            //TextCellRenderer cellRenderer =new TextCellRenderer(4, anchor.get(i).word, new Font("VL Gothic", Font.PLAIN, 16));
-            //cellRenderer.setHorizontalAlignement(Halign.LEFT);
-            //cellRenderer.setBorderDisplayed(true);
-            //cellRenderer.setBorderColor(java.awt.Color.red);		
-            //final DrawableTextCell t8 = new DrawableTextCell(cellRenderer, new Coord2d(anchor.get(i).x,anchor.get(i).y), new Coord2d(anchor.get(i).y,anchor.get(i).z));
-            //chart.getScene().getGraph().add( t8 );
+            TextCellRenderer cellRenderer =new TextCellRenderer(4, anchor.get(i).word, new Font("VL Gothic", Font.PLAIN, 16));
+            cellRenderer.setHorizontalAlignement(Halign.LEFT);
+            cellRenderer.setBorderDisplayed(true);
+            cellRenderer.setBorderColor(java.awt.Color.red);		
+            final DrawableTextCell t8 = new DrawableTextCell(cellRenderer, new Coord2d(anchor.get(i).x,anchor.get(i).y), new Coord2d(anchor.get(i).y,anchor.get(i).z));
+            chart.getScene().getGraph().add( t8 );
             //ITextRenderer.
             //drawText(anchor.get(i).word, new Coord3d(anchor.get(i).x,anchor.get(i).y,anchor.get(i).z), Color.BLUE, cellRenderer);
+            */
         }
         
     }

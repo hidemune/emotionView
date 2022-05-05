@@ -35,7 +35,8 @@ public class Emotion {
     static emotionJFrame frm;
     public static Double xxx, yyy, zzz;
     public static final String OS_NAME = System.getProperty("os.name").toLowerCase();
-
+    public static EmotionCoordinateView lv;
+        
     /**
      * @param args the command line arguments
      */
@@ -78,14 +79,17 @@ public class Emotion {
         anchor.add(new EmotionAnchor("awe", "畏れ", -1d, -1d, 1d));
         anchor.add(new EmotionAnchor("disapproval", "拒絶", -1d, -1d, -1d));
         anchor.add(new EmotionAnchor("anger", "怒り", 0d, 1d, 0d));
-        anchor.add(new EmotionAnchor("fear", "恐怖", 0d, -1d, 0d));
-        
+        anchor.add(new EmotionAnchor("fear", "不安", 0d, -1d, 0d));
+
         xxx = 0d;
         yyy = 0d;
         zzz = 0d;
         frm = new emotionJFrame();
         frm.setVisible(true);
 
+        EmotionCoordinateView lv = new EmotionCoordinateView(frm);
+        lv.init();
+        
         //key 全件メモリにセット
         try {
             File file = new File("emotion.csv");
@@ -326,13 +330,12 @@ create table emotionwords (
             double yT = 0d;
             double zT = 0d;
             
+            double xS = 0d;
+            double yS = 0d;
+            double zS = 0d;
+            
             for (int j = 0; j < bunseki.size(); j++) {
                 String prt = (bunseki.get(j).word + "　　　　　　　　　　　　　　　　　　　").substring(0, 10);
-                sb.append(prt);
-                
-                xT += bunseki.get(j).x;
-                yT += bunseki.get(j).y;
-                zT += bunseki.get(j).z;
                 
                 /*
                 sb.append("\t");
@@ -342,9 +345,30 @@ create table emotionwords (
                 sb.append("\t");
                 sb.append(String.format("%.3f",  bunseki.get(j).y));
                 */
-                sb.append("\t");
-                sb.append(getEmotionAncor(bunseki.get(j).x, bunseki.get(j).y, bunseki.get(j).z));
-                sb.append("<br>");
+                if (bunseki.get(j).word.equals("。")) {
+                    prt = (bunseki.get(j).word + "【この文】　　　　　　　　　　　　　　　　").substring(0, 10);
+                    sb.append(prt);
+                    sb.append("\t");
+                    sb.append(getEmotionAncor(xS, yS, zS));
+                    sb.append("<br>\n");
+                    sb.append("<br>\n");
+                    xS = 0d;
+                    yS = 0d;
+                    zS = 0d;
+                } else {
+                    xT += bunseki.get(j).x;
+                    yT += bunseki.get(j).y;
+                    zT += bunseki.get(j).z;
+
+                    xS += bunseki.get(j).x;
+                    yS += bunseki.get(j).y;
+                    zS += bunseki.get(j).z;
+                    
+                    sb.append(prt);
+                    sb.append("\t");
+                    sb.append(getEmotionAncor(bunseki.get(j).x, bunseki.get(j).y, bunseki.get(j).z));
+                    sb.append("<br>\n");
+                }
             }
 
             String prt = ("【文章全体】　　　　　　　　　　　　　　　　　　　").substring(0, 10);
@@ -352,7 +376,6 @@ create table emotionwords (
             sb.append("\t");
             sb.append(getEmotionAncor(xT, yT, zT));
             sb.append("<br>");
-
 
             frm.setText(sb.toString());
             bkup = keys;
@@ -383,11 +406,9 @@ create table emotionwords (
                 key.bunbo = 1000000;
                 keys.add(key);
             }
-            EmotionCoordinateView lv = new EmotionCoordinateView(frm);
-            lv.init();
             try {
-                Emotion.saveEmotion(false);
-                EmotionCoordinateView.main(null);
+                //Emotion.saveEmotion(false);
+                lv.main(null);
             }catch  (Exception e) {
                 e.printStackTrace();
             }
@@ -650,23 +671,21 @@ create table emotionwords (
 
     public static String getEmotionAncor(double x,double y,double z) {
         String ret = "";
-        Double lgt = 999999999d;
+        Double lgt = 0d;
         double lenBk = Math.sqrt( Math.pow( x, 2) + Math.pow( y, 2) + Math.pow( z, 2) );
         if (lenBk == 0) {
             
         } else {
             for (int i = 1; i < anchor.size(); i++) {
                 // 一番近いのを探す
-
-                double lenBkA = Math.sqrt( Math.pow(anchor.get(i).x , 2) + Math.pow(anchor.get(i).y , 2) + Math.pow(anchor.get(i).z , 2) );
+                double cosBkA = (anchor.get(i).x * x + anchor.get(i).y * y + anchor.get(i).z * z) / Math.sqrt( Math.pow(anchor.get(i).x + x, 2) + Math.pow(anchor.get(i).y + y, 2) + Math.pow(anchor.get(i).z + z, 2) );
                 
-                double lenBk2 = Math.sqrt( Math.pow(anchor.get(i).x / lenBkA - x / lenBk, 2) + Math.pow(anchor.get(i).y / lenBkA - y / lenBk, 2) + Math.pow(anchor.get(i).z / lenBkA - z / lenBk, 2) );
-
-                if (lgt > lenBk2) {
-                    double score = (1d - lenBk2) * 100d;
-                    if (score > 1d) {
-                        ret = Double.toString( score ).substring(0, 5) + "% " + anchor.get(i).word + "(" + anchor.get(i).wordEng + ")";
-                        lgt = lenBk2;
+                if (lgt < cosBkA) {
+                    double score = (1d - cosBkA) * 100d;
+                    if (score > 0d) {
+                        double percent = (lenBk) * 100d;
+                        ret = Double.toString( percent ).substring(0, 5) + "% " + anchor.get(i).word + "(" + anchor.get(i).wordEng + ")";
+                        lgt = cosBkA;
                     }
                 }
             }
@@ -771,7 +790,7 @@ create table emotionwords (
 
     public static void saveEmotion(boolean exit) throws IOException {
         frm.setExit();
-
+        /*
         System.out.println("Size(" + keys.size() + ")");
 
         //tab CSV Out

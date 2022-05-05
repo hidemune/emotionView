@@ -7,12 +7,14 @@ package emotion;
 
 import com.sun.glass.events.KeyEvent;
 import static emotion.Emotion.anchor;
+import static emotion.Emotion.lv;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
+import java.net.URL;
 import javafx.scene.input.MouseButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JEditorPane;
@@ -20,9 +22,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
+import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.Document;
+import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
+import javax.swing.text.html.HTML;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.HTMLFrameHyperlinkEvent;
@@ -47,13 +52,14 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
         } else {
             url.setText("https://search.yahoo.co.jp/search?ei=UTF-8&p=");
         }
+        html.setDocument(new MyDocument()); 
         html.addHyperlinkListener(this);
-        html.setBackground(Color.white);
-            StyleSheet styleSheet = new StyleSheet();
-            styleSheet.addRule("body {background-color: #FFFFFF;}");
-            HTMLEditorKit htmlEditorKit = new HTMLEditorKit();
-            htmlEditorKit.setStyleSheet(styleSheet);
-            html.setEditorKit(htmlEditorKit);
+        //html.setBackground(Color.white);
+            //StyleSheet styleSheet = new StyleSheet();
+            //styleSheet.addRule("body {background-color: #FFFFFF;}");
+            //HTMLEditorKit htmlEditorKit = new HTMLEditorKit();
+            //htmlEditorKit.setStyleSheet(styleSheet);
+            //html.setEditorKit(htmlEditorKit);
         html.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
         html.putClientProperty(JEditorPane.W3C_LENGTH_UNITS, Boolean.TRUE);
         setStyle();
@@ -67,7 +73,7 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
         group.add(jRadioButton3);
         setMode();
         setStyle();
-    }
+    }   
     public Document getHtml() {
         html.setText(html.getText().replaceAll("<.+?>", ""));
         return html.getDocument();
@@ -76,12 +82,12 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
         //
             StyleSheet styleSheet = new StyleSheet();
             styleSheet.addRule("body {background-color: #FFFFFF; Font: VL Gothic; Font-size: 14pt}");
-            HTMLEditorKit htmlEditorKit = new HTMLEditorKit();
-            htmlEditorKit.setStyleSheet(styleSheet);
-            html.setEditorKit(htmlEditorKit);
+            //HTMLEditorKit htmlEditorKit = new HTMLEditorKit();
+            //htmlEditorKit.setStyleSheet(styleSheet);
+            //html.setEditorKit(htmlEditorKit);
         /*
         //System.out.println(html.getText());
-        HTMLDocument doc = (HTMLDocument) html.getDocument();
+        MyDocument doc = (MyDocument) html.getDocument();
         StyleSheet ss = doc.getStyleSheet();
         StyleSheet[] sss = ss.getStyleSheets();
         for (int i = sss.length - 1; i >= 0; i--) {
@@ -172,7 +178,7 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
         html.setContentType("text/html;charset=UTF-8"); // NOI18N
         html.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         html.setDisabledTextColor(new java.awt.Color(153, 153, 153));
-        html.setHighlighter(null);
+        html.setHighlighter(jTextField1.getHighlighter());
         html.setInheritsPopupMenu(true);
         html.setOpaque(false);
         jScrollPane2.setViewportView(html);
@@ -336,7 +342,7 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(emotion, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -350,7 +356,7 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jRadioButton2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jRadioButton1)
@@ -367,7 +373,7 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
             .addGroup(layout.createSequentialGroup()
                 .addComponent(url, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(emotion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -379,11 +385,12 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
                             .addComponent(jButton6))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(jRadioButton1)
@@ -393,19 +400,19 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(jRadioButton3)
                                             .addComponent(jButton8))
-                                        .addGap(0, 0, Short.MAX_VALUE))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSlider2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSlider3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE))
+                        .addComponent(jSlider3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE))
         );
 
         pack();
@@ -443,9 +450,9 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
             html.setBackground(Color.white);
             StyleSheet styleSheet = new StyleSheet();
             styleSheet.addRule("body {background-color: #FFFFFF;}");
-            HTMLEditorKit htmlEditorKit = new HTMLEditorKit();
-            htmlEditorKit.setStyleSheet(styleSheet);
-            html.setEditorKit(htmlEditorKit);
+            //HTMLEditorKit htmlEditorKit = new HTMLEditorKit();
+            //htmlEditorKit.setStyleSheet(styleSheet);
+            //html.setEditorKit(htmlEditorKit);
         }catch (Exception e) {
             e.printStackTrace();
         }
@@ -472,11 +479,13 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
     }//GEN-LAST:event_formWindowClosing
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        EmotionCoordinateView view = new EmotionCoordinateView(mainFrm);
-        view.init();
+        if (lv == null) {
+            lv = new EmotionCoordinateView(mainFrm);
+        }
+        lv.init();
         try {
             //Emotion.saveEmotion(false);
-            EmotionCoordinateView.main(null);
+            lv.main(null);
         }catch  (Exception e) {
             e.printStackTrace();
         }
@@ -598,10 +607,10 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
             html.setText("");
             StyleSheet styleSheet = new StyleSheet();
             styleSheet.addRule("body {background-color: #FFFFFF;}");
-            HTMLEditorKit htmlEditorKit = new HTMLEditorKit();
-            htmlEditorKit.setStyleSheet(styleSheet);
-            html.setEditorKit(htmlEditorKit);
-            html.setText("");
+            //HTMLEditorKit htmlEditorKit = new HTMLEditorKit();
+            //htmlEditorKit.setStyleSheet(styleSheet);
+            //html.setEditorKit(htmlEditorKit);
+            //html.setText("");
         } else {
             html.setEditable(false);
         }
@@ -720,7 +729,7 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
             JEditorPane pane = (JEditorPane) e.getSource();
             if (e instanceof HTMLFrameHyperlinkEvent) {
                 HTMLFrameHyperlinkEvent  evt = (HTMLFrameHyperlinkEvent)e;
-                HTMLDocument doc = (HTMLDocument)pane.getDocument();
+                MyDocument doc = (MyDocument)pane.getDocument();
                 doc.processHTMLFrameHyperlinkEvent(evt);
                 setStyle();
             } else {
@@ -757,4 +766,28 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
     private java.awt.Label status;
     private javax.swing.JTextField url;
     // End of variables declaration//GEN-END:variables
+}
+
+    
+class MyDocument extends HTMLDocument{
+	public HTMLEditorKit.ParserCallback getReader(int pos) {
+		Object desc = getProperty(Document.StreamDescriptionProperty);
+		if (desc instanceof URL) {setBase((URL)desc);}
+		return new MyReader(pos);
+	}
+    
+	public class MyReader extends HTMLDocument.HTMLReader{
+		public MyReader(int pos){super(pos);}
+		
+		protected void addSpecialElement(HTML.Tag t, MutableAttributeSet a) {
+			super.addSpecialElement(t,a);
+			if(t==HTML.Tag.BR){
+				int size=parseBuffer.size();
+				parseBuffer.removeElementAt(size-1);
+				char[] c = {'\n'};
+				parseBuffer.addElement(new DefaultStyledDocument.ElementSpec(
+				a.copyAttributes(), DefaultStyledDocument.ElementSpec.ContentType,c,0,c.length));	
+			}
+		}
+	}
 }
