@@ -678,13 +678,15 @@ create table emotionwords (
         } else {
             for (int i = 1; i < anchor.size(); i++) {
                 // 一番近いのを探す
+                double lenBkA = Math.sqrt( Math.pow(anchor.get(i).x , 2) + Math.pow(anchor.get(i).y , 2) + Math.pow(anchor.get(i).z , 2) );
+                
                 double cosBkA = (anchor.get(i).x * x + anchor.get(i).y * y + anchor.get(i).z * z) / Math.sqrt( Math.pow(anchor.get(i).x + x, 2) + Math.pow(anchor.get(i).y + y, 2) + Math.pow(anchor.get(i).z + z, 2) );
                 
                 if (lgt < cosBkA) {
                     double score = (1d - cosBkA) * 100d;
                     if (score > 0d) {
-                        double percent = (lenBk) * 100d;
-                        ret = Double.toString( percent ).substring(0, 5) + "% " + anchor.get(i).word + "(" + anchor.get(i).wordEng + ")";
+                        double percent = (lenBk / lenBkA) * 100d;
+                        ret = (Double.toString( percent ) + "000000").substring(0, 5) + "% " + anchor.get(i).word + "(" + anchor.get(i).wordEng + ")";
                         lgt = cosBkA;
                     }
                 }
