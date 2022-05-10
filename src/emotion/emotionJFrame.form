@@ -291,7 +291,6 @@
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButton1">
       <Properties>
-        <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="&#x767b;&#x9332;&#x30e2;&#x30fc;&#x30c9;"/>
       </Properties>
       <Events>
@@ -316,6 +315,7 @@
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButton3">
       <Properties>
+        <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="&#x81ea;&#x7531;&#x5165;&#x529b;&#x30e2;&#x30fc;&#x30c9;"/>
       </Properties>
       <Events>

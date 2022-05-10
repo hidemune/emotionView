@@ -277,7 +277,6 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
             }
         });
 
-        jRadioButton1.setSelected(true);
         jRadioButton1.setText("登録モード");
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -299,6 +298,7 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
             }
         });
 
+        jRadioButton3.setSelected(true);
         jRadioButton3.setText("自由入力モード");
         jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

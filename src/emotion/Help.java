@@ -31,7 +31,7 @@ public class Help extends javax.swing.JFrame {
 
         setTitle("Draft");
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emotion/draft.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emotion/emotionV2Draft.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

@@ -73,11 +73,11 @@ public class Emotion {
         anchor.add(new EmotionAnchor("submission", "服従", 1d, -1d, -1d));
         anchor.add(new EmotionAnchor("sadness", "悲しみ", -1d, 0d, 0d));
         anchor.add(new EmotionAnchor("disgust", "憎しみ", -1d, 1d, 0d));
-        anchor.add(new EmotionAnchor("contempt", "軽蔑", -1d, 1d, 1d));
-        anchor.add(new EmotionAnchor("remorse", "自責", -1d, 1d, -1d));
+        anchor.add(new EmotionAnchor("remorse", "自責", -1d, 1d, 1d));
+        anchor.add(new EmotionAnchor("contempt", "軽蔑", -1d, 1d, -1d));
         anchor.add(new EmotionAnchor("surprise", "驚き", -1d, -1d, 0d));
-        anchor.add(new EmotionAnchor("awe", "畏れ", -1d, -1d, 1d));
-        anchor.add(new EmotionAnchor("disapproval", "拒絶", -1d, -1d, -1d));
+        anchor.add(new EmotionAnchor("disapproval", "拒絶", -1d, -1d, 1d));
+        anchor.add(new EmotionAnchor("awe", "畏れ", -1d, -1d, -1d));
         anchor.add(new EmotionAnchor("anger", "怒り", 0d, 1d, 0d));
         anchor.add(new EmotionAnchor("fear", "不安", 0d, -1d, 0d));
 
