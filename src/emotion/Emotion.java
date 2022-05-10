@@ -376,6 +376,11 @@ create table emotionwords (
             sb.append("\t");
             sb.append(getEmotionAncor(xT, yT, zT));
             sb.append("<br>");
+            prt = ("【文章平均】　　　　　　　　　　　　　　　　　　　").substring(0, 10);
+            sb.append(prt);
+            sb.append("\t");
+            sb.append(getEmotionAncor(xT / bunseki.size(), yT / bunseki.size(), zT / bunseki.size()));
+            sb.append("<br>");
 
             frm.setText(sb.toString());
             bkup = keys;
