@@ -1,3 +1,0 @@
-emotion.MyDocument
-emotion.emotionJFrame
-emotion.MyDocument$MyReader
