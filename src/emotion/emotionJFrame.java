@@ -474,7 +474,7 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         if (lv == null) {
-            lv = new EmotionCoordinateView(mainFrm);
+            lv = new EmotionCoordinateView();
         }
         lv.init();
         try {
@@ -616,9 +616,6 @@ public class emotionJFrame extends javax.swing.JFrame implements HyperlinkListen
         xx = Float.valueOf("" +Emotion.xxx) ;
         yy = Float.valueOf("" +Emotion.yyy) ;
         zz = Float.valueOf("" +Emotion.zzz) ;
-        if (EmotionCoordinateView.lgh != null) {
-            EmotionCoordinateView.lgh.set(xx, yy, zz);
-        }
         clipmode = true;
         double[] dist = new double[30];
         int idx = 100;

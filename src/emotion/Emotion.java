@@ -87,7 +87,7 @@ public class Emotion {
         frm = new emotionJFrame();
         frm.setVisible(true);
 
-        EmotionCoordinateView lv = new EmotionCoordinateView(frm);
+        EmotionCoordinateView lv = new EmotionCoordinateView();
         lv.init();
         
         //key 全件メモリにセット
