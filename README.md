@@ -62,3 +62,11 @@ H3型：中枢神経系でヒスタミン、セロトニン、ノルアドレナ
 ![図２](draft.png "図２")
 
 
+
+![図３](Plutick3D.bmp "図３")
+
+![図４](Plutick3D_False.bmp "図４")
+
+![図５](Plutick3D_True.bmp "図５")
+
+
